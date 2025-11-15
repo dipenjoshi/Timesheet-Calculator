@@ -1,0 +1,104 @@
+body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styling for input fields to match screenshot */
+        .time-input {
+            width: 48px; /* Fixed width for time parts */
+            text-align: center;
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.5rem 0.25rem; /* py-2 px-1 */
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.25rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+        .time-input:focus {
+            outline: none;
+            border-color: #6366f1; /* indigo-500 */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5); /* ring-indigo-500/50 */
+        }
+        .ampm-select {
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            padding: 0.5rem 0.25rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .ampm-select:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+        }
+        .date-cell {
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            user-select: none; /* Prevent text selection during drag */
+        }
+        .date-cell:hover {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .date-cell.has-entry {
+            background-color: #e0e7ff; /* indigo-100 */
+        }
+        .date-cell.current-day {
+            border: 2px solid #6366f1; /* indigo-500 */
+        }
+        .date-cell.selected {
+            background-color: #bfdbfe; /* blue-200 */
+            border: 1px solid #60a5fa; /* blue-500 */
+        }
+        /* Print styles */
+        @media print {
+            body > *:not(.print-content) {
+                display: none;
+            }
+            .print-content {
+                display: block;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                font-family: 'Inter', sans-serif;
+                font-size: 10pt; /* Smaller base font size for compression */
+            }
+            .print-content h1, .print-content h2, .print-content h3 {
+                text-align: center;
+                margin-bottom: 0.5em; /* Reduced margin */
+            }
+            .print-content table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 0.5em; /* Reduced margin */
+            }
+            .print-content th, .print-content td {
+                border: 1px solid #ccc;
+                padding: 4px; /* Reduced padding */
+                text-align: left;
+            }
+            .print-content .text-right {
+                text-align: right;
+            }
+            .print-content .contractual-line {
+                margin-top: 1em; /* Reduced margin */
+                text-align: center;
+                font-size: 9pt; /* Smaller font size */
+            }
+            .print-content .signature-line {
+                margin-top: 1em; /* Reduced margin */
+                border-top: 1px solid #000;
+                width: 50%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                padding-top: 3px; /* Reduced padding */
+            }
+            .print-content .date-line {
+                margin-top: 0.5em; /* Reduced margin */
+                border-top: 1px solid #000;
+                width: 30%;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                padding-top: 3px; /* Reduced padding */
+            }
+        }
