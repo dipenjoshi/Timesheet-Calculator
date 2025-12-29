@@ -1,48 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Time Card</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+<body class="min-h-screen bg-gray-100 p-8 font-sans antialiased">
 
-<body class="min-h-screen font-sans antialiased"
-    style="background-color: var(--bg-primary); color: var(--text-primary);">
+    <div class="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-xl">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Employee Time Card</h1>
 
-    <div class="w-full p-6 rounded-none shadow-none" style="background-color: var(--bg-primary);">
-        <h1 class="text-3xl font-bold text-center mb-6" style="color: var(--text-primary);">Employee Time Card
-            <a href="FAQ.html" class="faq-floating-btn" rel="help" title="Frequently Asked Questions" style="color: blue;">
-            ?
-        </a>
-        </h1>
-        
         <div class="mb-6 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-4">
             <div class="flex items-center space-x-2 w-full md:w-auto">
-                <label for="employee-select" class="text-gray-700 font-medium whitespace-nowrap">Select
-                    Employee:</label>
-                <select id="employee-select"
-                    class="employee-dropdown flex-grow p-2 border-2 rounded-md shadow-sm sm:text-sm focus:outline-none transition-colors">
-                </select>
+                <label for="employee-select" class="text-gray-700 font-medium whitespace-nowrap">Select Employee:</label>
+                <select id="employee-select" class="flex-grow p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </select>
             </div>
             <div class="flex flex-col items-end w-full md:w-auto">
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">Employee</h3>
                 <div class="flex space-x-2">
-                    <button id="add-employee-btn"
-                        class="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-150 ease-in-out shadow-sm flex items-center justify-center">
+                    <button id="add-employee-btn" class="px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150 ease-in-out shadow-sm flex items-center justify-center">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <button id="edit-employee-btn"
-                        class="px-3 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition duration-150 ease-in-out shadow-sm flex items-center justify-center">
+                    <button id="edit-employee-btn" class="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-150 ease-in-out shadow-sm flex items-center justify-center">
                         <i class="fas fa-pen"></i>
                     </button>
-                    <button id="delete-employee-btn"
-                        class="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-150 ease-in-out shadow-sm flex items-center justify-center">
+                    <button id="delete-employee-btn" class="px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-150 ease-in-out shadow-sm flex items-center justify-center">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
@@ -50,83 +37,59 @@
         </div>
 
         <div class="flex items-center justify-between mb-4">
-            <button id="prev-month-btn"
-                class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition duration-150 ease-in-out min-w-max"></button>
+            <button id="prev-month-btn" class="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition duration-150 ease-in-out">&lt;</button>
             <h2 id="current-month-year" class="text-xl font-semibold text-gray-800"></h2>
-            <button id="next-month-btn"
-                class="px-4 py-2 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition duration-150 ease-in-out min-w-max"></button>
+            <button id="next-month-btn" class="px-3 py-1 rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition duration-150 ease-in-out">&gt;</button>
         </div>
 
         <div class="overflow-x-auto rounded-lg shadow-md">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-200 text-gray-800">
-                    <tr>
-                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Sun
-                        </th>
-                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Mon
-                        </th>
-                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Tue
-                        </th>
-                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Wed
-                        </th>
-                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Thu
-                        </th>
-                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Fri
-                        </th>
-                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Sat
-                        </th>
+                <thead class="bg-gray-200 text-gray-800"> <tr>
+                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Sun</th>
+                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Mon</th>
+                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Tue</th>
+                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Wed</th>
+                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Thu</th>
+                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Fri</th>
+                        <th scope="col" class="px-2 py-3 text-center text-xs font-medium uppercase tracking-wider">Sat</th>
                     </tr>
                 </thead>
                 <tbody id="calendar-body" class="bg-white divide-y divide-gray-200">
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
         </div>
 
     </div>
 
-    <div id="add-employee-modal"
-        class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div id="add-employee-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto">
             <h3 class="text-xl font-semibold mb-4">Add New Employee</h3>
-            <input type="text" id="new-employee-name"
-                class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-green-500 focus:border-green-500"
-                placeholder="Employee Name">
-            <input type="number" id="new-employee-hourly-rate"
-                class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-green-500 focus:border-green-500"
-                placeholder="Hourly Rate (e.g., 15.00)" step="0.01" min="0">
+            <input type="text" id="new-employee-name" class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Employee Name">
+            <input type="number" id="new-employee-hourly-rate" class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Hourly Rate (e.g., 15.00)" step="0.01" min="0">
             <div class="flex justify-end space-x-2">
-                <button id="cancel-add-employee"
-                    class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
-                <button id="confirm-add-employee"
-                    class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Add</button>
+                <button id="cancel-add-employee" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
+                <button id="confirm-add-employee" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Add</button>
             </div>
         </div>
     </div>
 
-    <div id="edit-employee-modal"
-        class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div id="edit-employee-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto">
             <h3 class="text-xl font-semibold mb-4">Edit Employee</h3>
-            <input type="text" id="edit-employee-name"
-                class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-yellow-500 focus:border-yellow-500">
-            <input type="number" id="edit-employee-hourly-rate"
-                class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-yellow-500 focus:border-yellow-500"
-                step="0.01" min="0">
+            <input type="text" id="edit-employee-name" class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-indigo-500 focus:border-indigo-500">
+            <input type="number" id="edit-employee-hourly-rate" class="w-full p-2 border border-gray-300 rounded-md mb-4 focus:ring-indigo-500 focus:border-indigo-500" step="0.01" min="0">
             <div class="flex justify-end space-x-2">
-                <button id="cancel-edit-employee"
-                    class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
-                <button id="save-edit-employee"
-                    class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">Save Changes</button>
+                <button id="cancel-edit-employee" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
+                <button id="save-edit-employee" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Save Changes</button>
             </div>
         </div>
     </div>
 
-    <div id="time-entry-modal"
-        class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div id="time-entry-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-md mx-auto">
             <h3 class="text-xl font-semibold mb-4">Time Entry for <span id="modal-date-display"></span></h3>
             <input type="hidden" id="modal-date">
-
+            
             <div class="grid grid-cols-2 gap-4 mb-4">
                 <div>
                     <label for="modal-start-time" class="block text-sm font-medium text-gray-700">Start Time</label>
@@ -137,9 +100,6 @@
                             <option value="PM">PM</option>
                         </select>
                     </div>
-                    <button id="punch-in-btn"
-                        class="mt-2 w-full px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-150 ease-in-out shadow-sm">Punch
-                        In</button>
                 </div>
                 <div>
                     <label for="modal-end-time" class="block text-sm font-medium text-gray-700">End Time</label>
@@ -150,56 +110,40 @@
                             <option value="PM">PM</option>
                         </select>
                     </div>
-                    <button id="punch-out-btn"
-                        class="mt-2 w-full px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-150 ease-in-out shadow-sm">Punch
-                        Out</button>
                 </div>
             </div>
 
             <div class="flex justify-end space-x-2">
-                <button id="cancel-time-entry"
-                    class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
-                <button id="save-time-entry"
-                    class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save</button>
+                <button id="cancel-time-entry" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
+                <button id="save-time-entry" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Save</button>
             </div>
         </div>
     </div>
 
-    <div id="summary-modal"
-        class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div id="summary-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
             <h3 class="text-xl font-semibold mb-4">Summary for Selected Dates</h3>
-            <p class="text-gray-700 mb-2">Date Range: <span id="modal-summary-date-range" class="font-medium"></span>
-            </p>
-            <p class="text-gray-700 mb-2">Total Hours: <span id="modal-summary-total-hours"
-                    class="font-medium text-indigo-700">0.00</span></p>
-            <p class="text-gray-700 mb-4">Income Earned: <span id="modal-summary-income-earned"
-                    class="font-medium text-green-700">$0.00</span></p>
+            <p class="text-gray-700 mb-2">Date Range: <span id="modal-summary-date-range" class="font-medium"></span></p>
+            <p class="text-gray-700 mb-2">Total Hours: <span id="modal-summary-total-hours" class="font-medium text-indigo-700">0.00</span></p>
+            <p class="text-gray-700 mb-4">Income Earned: <span id="modal-summary-income-earned" class="font-medium text-green-700">$0.00</span></p>
             <div class="flex justify-center space-x-2 mt-4">
-                <button id="print-summary-btn"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-150 ease-in-out shadow-sm">Print</button>
-                <button id="close-summary-modal"
-                    class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Close</button>
+                <button id="print-summary-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-150 ease-in-out shadow-sm">Print</button>
+                <button id="close-summary-modal" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Close</button>
             </div>
         </div>
     </div>
 
-    <div id="confirmation-modal"
-        class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div id="confirmation-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
             <p id="confirmation-message" class="text-lg font-semibold text-gray-800 mb-4"></p>
             <div class="flex justify-center space-x-4">
-                <button id="confirm-action"
-                    class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Confirm</button>
-                <button id="cancel-action"
-                    class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
+                <button id="confirm-action" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">Confirm</button>
+                <button id="cancel-action" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
             </div>
         </div>
     </div>
 
 
-    <script src="printTemplate.js"></script>
     <script src="script.js"></script>
 </body>
-
 </html>
