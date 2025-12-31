@@ -278,19 +278,23 @@ const applyEmployeeTheme = (colorName) => {
 };
 
 /**
- * Shows a custom modal.
+ * Shows a custom modal using Bootstrap Modal API.
  * @param {HTMLElement} modalElement - The modal element to show.
  */
 const showModal = (modalElement) => {
-    modalElement.classList.remove('hidden');
+    const bootstrapModal = new bootstrap.Modal(modalElement);
+    bootstrapModal.show();
 };
 
 /**
- * Hides a custom modal.
+ * Hides a custom modal using Bootstrap Modal API.
  * @param {HTMLElement} modalElement - The modal element to hide.
  */
 const hideModal = (modalElement) => {
-    modalElement.classList.add('hidden');
+    const bootstrapModal = bootstrap.Modal.getInstance(modalElement);
+    if (bootstrapModal) {
+        bootstrapModal.hide();
+    }
 };
 
 /**
