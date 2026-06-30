@@ -13,6 +13,50 @@
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
+<style>
+    :root { --top-offset: 0px; }
+    html, body { height: 100%; margin: 0; }
+    /* Page container uses full viewport and lays out header + calendar vertically */
+    .container-lg { display: flex; flex-direction: column; min-height: 100vh; }
+    /* Calendar area grows to fill remaining space */
+    .calendar-container { flex: 1 1 auto; overflow: hidden; }
+    .table-responsive { overflow: visible; }
+    .calendar-container .table { height: 100%; width: 100%; table-layout: fixed; border-collapse: collapse; }
+    /* Keep normal table semantics; allow cells to scroll internally if content overflows */
+    #calendar-body tr { }
+    #calendar-body td { vertical-align: top; overflow: auto; padding: 0.5rem; }
+</style>
+
+<script>
+// Measure calendar top and set table + row heights while preserving table layout.
+(function(){
+    function update() {
+        var el = document.querySelector('.calendar-container');
+        if (!el) return;
+        var top = Math.round(el.getBoundingClientRect().top);
+        var remaining = window.innerHeight - top;
+        var table = el.querySelector('.table');
+        if (!table) return;
+        table.style.height = remaining + 'px';
+        var thead = table.querySelector('thead');
+        var headerH = thead ? Math.round(thead.getBoundingClientRect().height) : 0;
+        var rows = table.querySelectorAll('#calendar-body tr');
+        if (rows.length === 0) return;
+        var rowHeight = Math.floor((remaining - headerH) / rows.length);
+        rows.forEach(function(r){ r.style.height = rowHeight + 'px'; });
+    }
+    window.addEventListener('resize', update);
+    window.addEventListener('DOMContentLoaded', function(){ update(); setTimeout(update,50); });
+    // observe changes to the calendar body (e.g., re-render) and update
+    var target = document.getElementById('calendar-body');
+    if (target && window.MutationObserver) {
+        var mo = new MutationObserver(function(){ update(); });
+        mo.observe(target, { childList: true, subtree: true });
+    }
+    update();
+})();
+</script>
+
 <body class="min-vh-100">
 
     <div class="container-lg p-4">
@@ -54,7 +98,7 @@
             </button>
         </div>
 
-        <div class="table-responsive rounded">
+        <div class="table-responsive rounded calendar-container">
             <table class="table table-bordered table-hover mb-0">
                 <thead class="table-light">
                     <tr>
