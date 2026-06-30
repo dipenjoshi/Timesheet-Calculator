@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Time Card</title>
+    <script>
+        // Apply initial theme before CSS loads to match OS preference and avoid flash
+        try {
+            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-bs-theme', prefersDark ? 'dark' : 'light');
+        } catch (e) { /* ignore */ }
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -25,6 +32,9 @@
     /* Keep normal table semantics; allow cells to scroll internally if content overflows */
     #calendar-body tr { }
     #calendar-body td { vertical-align: top; overflow: auto; padding: 0.5rem; }
+    /* Minimal theme toggle styling */
+    .theme-toggle-btn { margin-left: 0.5rem; opacity: 0.9; }
+    .theme-toggle-btn i { pointer-events: none; }
 </style>
 
 <script>
@@ -64,6 +74,9 @@
             <a href="FAQ.html" class="faq-floating-btn" rel="help" title="Frequently Asked Questions">
                 <i class="fas fa-question-circle"></i>
             </a>
+            <button id="theme-toggle-btn" class="btn btn-outline-secondary btn-sm theme-toggle-btn" title="Toggle theme" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
         </h1>
         
         <div class="mb-4 d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
@@ -245,6 +258,41 @@
     <script src="theme-switcher.js"></script>
     <script src="printTemplate.js"></script>
     <script src="script.js"></script>
+    <script>
+    (function(){
+        function updateIcon(){
+            var btn = document.getElementById('theme-toggle-btn');
+            if(!btn) return;
+            var theme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+            var icon = btn.querySelector('i');
+            if(icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            btn.title = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+        }
+
+        var btn = document.getElementById('theme-toggle-btn');
+        if(btn) {
+            btn.addEventListener('click', function(){
+                if(window.ThemeSwitcher && typeof window.ThemeSwitcher.toggle === 'function') {
+                    window.ThemeSwitcher.toggle();
+                } else {
+                    var cur = document.documentElement.getAttribute('data-bs-theme') || 'light';
+                    var next = cur === 'light' ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-bs-theme', next);
+                    try { localStorage.setItem('timesheet-theme-preference', next); } catch(e){}
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateIcon);
+        // Observe attribute changes on <html>
+        if(window.MutationObserver){
+            var mo = new MutationObserver(updateIcon);
+            mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-bs-theme'] });
+        }
+        // initial call
+        updateIcon();
+    })();
+    </script>
 </body>
 
 </html>

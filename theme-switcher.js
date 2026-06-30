@@ -15,23 +15,30 @@
      */
     function initializeTheme() {
         const savedPreference = localStorage.getItem(STORAGE_KEY);
-        
-        if (savedPreference) {
-            // Use saved preference
+
+        // Only honor explicit 'light' or 'dark' saved values. Anything else falls back to OS preference.
+        if (savedPreference === LIGHT_THEME || savedPreference === DARK_THEME) {
             setTheme(savedPreference);
         } else {
-            // Use OS preference
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
             setTheme(prefersDark.matches ? DARK_THEME : LIGHT_THEME);
         }
 
         // Listen for changes in OS preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-            // Only auto-switch if user hasn't saved a preference
-            if (!localStorage.getItem(STORAGE_KEY)) {
-                setTheme(e.matches ? DARK_THEME : LIGHT_THEME);
-            }
-        });
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        if (mq.addEventListener) {
+            mq.addEventListener('change', (e) => {
+                if (!localStorage.getItem(STORAGE_KEY)) {
+                    setTheme(e.matches ? DARK_THEME : LIGHT_THEME);
+                }
+            });
+        } else if (mq.addListener) {
+            mq.addListener((e) => {
+                if (!localStorage.getItem(STORAGE_KEY)) {
+                    setTheme(e.matches ? DARK_THEME : LIGHT_THEME);
+                }
+            });
+        }
     }
 
     /**
